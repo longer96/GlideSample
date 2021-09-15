@@ -11,8 +11,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class RequestManage {
     private static RequestManage instance;
 
+    // 暂时没有用上，Glide有内存回收机制，会通过context绑定注册Fragment，自动管理生命周期
     private Context context;
-    private String url;
     private LinkedBlockingQueue<RequestBuild> requestQueue = new LinkedBlockingQueue<RequestBuild>();
     private DispatcheTask[] tasks;
 
@@ -57,6 +57,7 @@ public class RequestManage {
         Log.d("TAG", "ThreadCount: " + threadCount);
 
         // todo 为什么要开这么多线程
+        // 有点类似于银行柜台业务 threadCount：模拟器跑出来等于2
         for (int i = 0; i < threadCount; i++) {
             Log.d("TAG", "i: " + i);
             DispatcheTask task = new DispatcheTask(requestQueue);
